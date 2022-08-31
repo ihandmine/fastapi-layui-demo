@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>管理界面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet">
+    <style>
+        /* 移动端 */
+        @media screen and (max-width: 768px) {
+
+            .layui-layout-admin .layui-layout-left,
+            .layui-layout-admin .layui-body,
+            .layui-layout-admin .layui-footer {
+                left: 0;
+            }
+
+            .layui-layout-admin .layui-side {
+                left: -300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header layui-bg-blue">
+            <div class="layui-logo layui-bg-blue">QueryHelper</div>
+            <!-- 头部区域（可配合layui 已有的水平导航） -->
+            <ul class="layui-nav layui-layout-right">
+                <!-- 移动端显示 -->
+                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+                    <i class="layui-icon layui-icon-spread-left"></i>
+                </li>
+
+                <li class="layui-nav-item layui-hide-xs"><a href="">nav 1</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="">nav 2</a></li>
+                <li class="layui-nav-item layui-hide-xs"><a href="">nav 3</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">nav groups</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">menu 11</a></dd>
+                        <dd><a href="">menu 22</a></dd>
+                        <dd><a href="">menu 33</a></dd>
+                    </dl>
+                </li>
+
+
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed"><a href="javascript:;">选项一</a></li>
+                    <li class="layui-nav-item"><a href="">选项二</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div style="padding: 15px;">
+                <br>
+                <div class="layui-collapse ">
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title layui-font-blue">搜索区域</h2>
+                        <div class="layui-colla-content layui-show">
+                            <div class="layui-form" lay-filter="test1">
+                                <!-- 表单内部 -->
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">zid</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="zid" required lay-verify="required"
+                                            placeholder="请输入zid" autocomplete="off" class="layui-input">
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux">辅助提示文字</div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">company_id</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="company_id" placeholder="请输入company_id"
+                                            autocomplete="off" class="layui-input">
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux">辅助提示文字</div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">sid</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="sid" placeholder="请输入sid" autocomplete="off"
+                                            class="layui-input">
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux">辅助提示文字</div>
+                                </div>
+
+                                <!-- 时间选择框 -->
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">开始时间</label>
+                                    <div class="layui-input-inline">
+                                        <!-- 注意：这一层元素并不是必须的 -->
+                                        <input type="text" name="start" class="layui-input" id="start">
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux">辅助提示文字</div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">结束时间</label>
+                                    <div class="layui-input-inline">
+                                        <!-- 注意：这一层元素并不是必须的 -->
+                                        <input type="text" name="end" class="layui-input" id="end">
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux">辅助提示文字</div>
+                                </div>
+
+                            </div>
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn layui-bg-blue" lay-submit lay-filter="formDemo"
+                                        id="testSubmitBtn">提交条件</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div style="padding: 15px;">
+                <div class="layui-card layui-panel">
+                    <div class="layui-card-header layui-font-blue">
+                        数据表格显示
+                    </div>
+                    <div class="layui-card-body">
+                        <table id="demo" lay-filter="test"></table>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+
+
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        底部固定区域
+    </div>
+    </div>
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <script>
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start' //指定元素
+            });
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#end' //指定元素
+            });
+        });
+    </script>
+    <script>
+        //Demo
+        layui.use(['layer', 'form', 'table', 'jquery'], function () {
+            var form = layui.form;
+            var table = layui.table;
+            var $ = layui.$;
+
+            $('#testSubmitBtn').on('click', function () {
+                $("#testSubmitBtn").addClass(" layui-btn-disabled").prop("disabled", true);
+                var loading = layer.load(1, {
+                    shade: [0.3, '#fff'],
+                    content: '',
+                    success: function (layerContentStyle) { // 设置loading样式
+                        layerContentStyle.find('#demo').css({
+                            'padding-left': '45px',
+                            'text-align': 'left',
+                            'width': '175px',
+                            'line-height': '30px'
+                        });
+                    }
+                });
+                data = form.val("test1");
+                //提交
+                // layer.msg(JSON.stringify(data));
+                $.post(
+                    "http://127.0.0.1:8080/data",
+                    data,
+                    function (json) {
+                        table.render({
+                            elem: '#demo'
+                            , data: json['data']
+                            , height: 400
+                            , cols: [[ //表头
+                                { field: 'zid', title: 'zid', fixed: 'left' }
+                                , { field: 'sid', title: 'sid', sort: true }
+                                , { field: 'date', title: 'date', sort: true }
+                                , { field: 'ordered', title: 'ordered', sort: true }
+                            ]]
+                        });
+                        layer.close(loading);
+                        $("#testSubmitBtn").removeClass(" layui-btn-disabled").prop("disabled", false);
+                    });
+            });
+        });
+    </script>
+    <script>
+        //JS
+        layui.use(['element', 'layer', 'util'], function () {
+            var element = layui.element
+                , layer = layui.layer
+                , util = layui.util
+                , $ = layui.$;
+
+            //头部事件
+            util.event('lay-header-event', {
+                //左侧菜单事件
+                menuLeft: function (othis) {
+                    layer.msg('展开左侧菜单的操作', { icon: 0 });
+                }
+                , menuRight: function () {
+                    layer.open({
+                        type: 1
+                        , title: '更多'
+                        , content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
+                        , area: ['260px', '100%']
+                        , offset: 'rt' //右上角
+                        , anim: 5
+                        , shadeClose: true
+                        , scrollbar: false
+                    });
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>
