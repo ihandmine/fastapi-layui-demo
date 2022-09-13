@@ -12,7 +12,7 @@ tmp = Jinja2Templates(directory='templates')
 
 @app.get('/', response_class=HTMLResponse)
 async def index():  # async加了就支持异步  把Request赋值给request
-    with open('./templates/index.html', 'r', encoding='utf-8') as f:
+    with open('./templates/index-bak.html', 'r', encoding='utf-8') as f:
         _html = f.read()
     return _html
 
@@ -31,10 +31,17 @@ async def get_data(
     """
     print(zid, sid, company_id, start, end)
     import time
-    time.sleep(5)
+    time.sleep(10)
+
+    # return {
+    #     "code": 1,
+    #     "msg": "test 异常",
+    #     "count": 10,
+    #     "data": []
+    # }
     return {
-        "code": 0,
-        "msg": "",
+        "code": 1,
+        "msg": "test 异常",
         "count": 10,
         "data": [
             {
