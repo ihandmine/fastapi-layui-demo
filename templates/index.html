@@ -176,6 +176,19 @@
             var $ = layui.$;
 
             $('#testSubmitBtn').on('click', function () {
+                data = form.val("test1");
+                if (data['zid'].length < 1) {
+                    layer.msg("zid 字段为必填项!", { icon: 5 });
+                    return
+                }
+                //提交
+                // layer.msg(JSON.stringify(data));
+                var timeout = setTimeout(function () {
+                    layer.msg("请求超时, 请稍后重试!", { icon: 5 }, function () {
+                        layer.close(loading);
+                        $("#testSubmitBtn").removeClass(" layui-btn-disabled").prop("disabled", false);
+                    });
+                }, 5000);
                 $("#testSubmitBtn").addClass(" layui-btn-disabled").prop("disabled", true);
                 var loading = layer.load(1, {
                     shade: [0.3, '#fff'],
@@ -189,13 +202,21 @@
                         });
                     }
                 });
-                data = form.val("test1");
-                //提交
-                // layer.msg(JSON.stringify(data));
                 $.post(
                     "http://127.0.0.1:8080/data",
                     data,
                     function (json) {
+                        if (timeout) {
+                            clearTimeout(timeout);
+                            timeout = null;
+                        }
+                        if (json['code'] != 0) {
+                            layer.msg("请求异常: " + json['msg'], { icon: 5, time: 2000 }, function () {
+                                layer.close(loading);
+                                $("#testSubmitBtn").removeClass(" layui-btn-disabled").prop("disabled", false);
+                            });
+                            return
+                        }
                         table.render({
                             elem: '#demo'
                             , data: json['data']
